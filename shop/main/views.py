@@ -13,14 +13,14 @@ def home(request):
             'description': 'JavaScript для створення інтерфейсів',
         },
         {
-            'image': 'main/images/aspdotnetcore.png',
-            'title': 'Python',
-            'description': 'Мова програмування Python',
+            'image': 'main/images/django.png',
+            'title': 'Python Django',
+            'description': 'фреймворк Python для веброзробки.',
         },
         {
-            'image': 'main/images/django.jpg',
-            'title': 'Django',
-            'description': 'Фреймворк для розробки веб-застосунків',
+            'image': 'main/images/asp.png',
+            'title': 'ASP.NET CORE',
+            'description': 'фреймворк Microsoft для створення вебзастосунків на C#',
         }
     ]
     return render(request, 'main/index.html', {'cards': cards})

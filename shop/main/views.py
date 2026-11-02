@@ -6,10 +6,29 @@ from django.shortcuts import render
 #localhost:127.0.0.1:8000
 def home(request):
     # return HttpResponse("Hello World")
-    return render(request, 'main/layout.html')
+    cards = [
+        {
+            'image': 'main/images/react.png',
+            'title': 'React',
+            'description': 'JavaScript для створення інтерфейсів',
+        },
+        {
+            'image': 'main/images/aspdotnetcore.png',
+            'title': 'Python',
+            'description': 'Мова програмування Python',
+        },
+        {
+            'image': 'main/images/django.jpg',
+            'title': 'Django',
+            'description': 'Фреймворк для розробки веб-застосунків',
+        }
+    ]
+    return render(request, 'main/index.html', {'cards': cards})
 
 def about(request):
-    return render(request, 'main/about.html')
+    text = 'Це сторінка про Нас. Це точна ця сторінка'
+    frameworks = ['flask', 'django', 'fast api']
+    return render(request, 'main/about.html', {'text': text, 'frameworks': frameworks})
 
 def services(request):
     return render(request, 'main/services.html')

@@ -14,4 +14,15 @@ Main Page
                 Детальніше
             </button>
         </div>
+        <form id="createForm" >
+              {% csrf_token %}
+            <input type="text" name= "title" class="form-ghost" placeholder="Title">
+            <input type="text" name= "description" class="form-ghost" placeholder="Description">
+            <input type="text" name= "image" class="form-ghost" placeholder="Image">
+            <button type="submit">Create</button>
+        </form>
+        <form action="{% url 'search' %}">
+          <input type="search" name= "title" class="form-ghost" placeholder="Search...">
+              <input type="submit" value="OK">
+        </form>
 {%endblock%}

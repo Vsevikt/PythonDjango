@@ -1,5 +1,8 @@
+from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+import json
+
 from .cards import cards
 # Create your views here.
 
@@ -37,6 +40,29 @@ def search(request):
     return render(request, 'main/index.html', {
         'cards': result
     })
+
+def create_card(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        title = data.get('title')
+        description = data.get('description')
+        image = data.get('image')
+    return JsonResponse({'message':'ok'})
+
+def registration(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        passwordRepeat = request.POST.get("passwordRepeat")
+
+        if password != request.POST.get("passwordRepeat"):
+            return render(request, "main/registration.html", {
+                "error": "Паролі не збігаються"
+            })
+
+        return redirect("home")
+
+    return render(request, "main/registration.html")
 
 def about(request):
     #return HttpResponse("Hello World")

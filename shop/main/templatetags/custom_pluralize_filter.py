@@ -5,20 +5,27 @@ register = template.Library()
 
 @register.filter
 def uk_pluralize(value, forms):
-    """Choose the correct Ukrainian noun form from three comma-separated forms."""
+    """
+    forms: однина, 2-4, 5-0
+    Наприклад: картка, картки, карток
+    """
     try:
-        number = abs(int(value))
-        singular, paucal, plural = (form.strip() for form in forms.split(","))
-    except (TypeError, ValueError):
-        return ""
+        n = abs(int(value))
+    except (ValueError, TypeError):
+        return ''
 
-    last_two_digits = number % 100
-    last_digit = number % 10
+    forms = forms.split(',')
 
-    if 11 <= last_two_digits <= 14:
-        return plural
-    if last_digit == 1:
-        return singular
-    if 2 <= last_digit <= 4:
-        return paucal
-    return plural
+    if len(forms) != 3:
+        return ''
+
+    if 11 <= n % 100 <= 14:
+        return forms[2]
+
+    if n % 10 == 1:
+        return forms[0]
+
+    if 2 <= n % 10 <= 4:
+        return forms[1]
+
+    return forms[2]

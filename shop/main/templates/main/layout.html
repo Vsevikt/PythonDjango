@@ -24,16 +24,16 @@
             <div class="collapse navbar-collapse" id="mainMenu">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Головна</a>
+                        <a class="nav-link active" href="/">Головна</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/about">Про нас</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/services">Послуги</a>
+                        <a class="nav-link" href="#">Послуги</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/contacts">Контакти</a>
+                        <a class="nav-link" href="#">Контакти</a>
                     </li>
                 </ul>
             </div>
@@ -42,32 +42,47 @@
 
     <!-- Основний контент -->
     <main class="container mt-4">
-    {%block content%}
-        <!-- Заголовок -->
-        <div class="p-5 mb-4 bg-white rounded-3 shadow-sm">
-            <h1 class="display-5 fw-bold">Вітаємо на нашому сайті!</h1>
-            <p class="fs-5 text-muted">
-                Це проста сторінка, створена за допомогою Bootstrap 5.
-            </p>
-            <button class="btn btn-primary">
-                Детальніше
-            </button>
-        </div>
-    {%endblock%}
-
+    {% block content %}
+        {% endblock %}
+  <form action="{% url 'search' %}" method="GET" class="mb-4">
+    <div class="input-group">
+        <input
+            type="search"
+            name="title"
+            class="form-control"
+            placeholder="Введите название..."
+            value="{{ request.GET.title }}"
+        >
+        <button type="submit" class="btn btn-primary">
+            Найти
+        </button>
+    </div>
+</form>
         <!-- Блоки контенту -->
         <div class="row g-4">
-        {% for card in cards %}
-            <section class="card" style="max-width: 320px">
-                <img src="{% static card.image %}" class="card-img-top" alt="{{ card.title }}">
+            {% for card in cards %}
+<!--            {% if forloop.first %}-->
+<!--            <p>Start</p>-->
+<!--            {% endif %}-->
+<!--            {% if forloop.last %}-->
+<!--            <p>End</p>-->
+<!--            {% endif %}-->
 
-                <div class="card-body">
-                    <h4 class="card-title">{{ card.title }}</h4>
-                    <p class="card-text">{{ card.description }} </p>
-                </div>
-            </section>
-        {% endfor %}
+            <div class="col-md-4">
+
+                    <section class="card" style="max-width: 320px">
+ <img src="{% static card.image %}" class="card-img-top" alt="{{ card.title }}">
+  <div class="card-body">
+    <h4 class="card-title">{{ card.title }}</h4>
+    <p class="card-text">{{ card.description }}</p>
+    <a href="card/{{forloop.counter}}" class="btn-solid theme-primary">Details</a>
+  </div>
+</section>
+
+            </div>
+{% endfor %}
         </div>
+
     </main>
 
     <!-- Підвал -->
@@ -79,6 +94,5 @@
 
     <!-- Bootstrap JS -->
     <script src="{% static 'main/js/bootstrap.bundle.min.js' %}"></script>
-<!--    <script src="{% static 'main/js/test.js' %}"></script>-->
 </body>
 </html>

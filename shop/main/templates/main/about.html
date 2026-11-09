@@ -1,14 +1,22 @@
 {% extends 'main/layout.html' %}
+{% load custom_pluralize_filter %}
 {% block title %}
-Main Page
+About Page
 {% endblock %}
 
 {%block content%}
-        <!-- Заголовок -->
+  <!-- Заголовок -->
         <div class="p-5 mb-4 bg-white rounded-3 shadow-sm">
             <h1 class="display-5 fw-bold">Вітаємо на нашому сайті!</h1>
             <p class="fs-5 text-muted">
-                {{text}}
+                {{text | default:"Немає текста"}}
+                 <ul>
+                {% for el in data %}
+                <li>{{ el }} {{el|uk_pluralize:"товар,товари,товарів"}}</li>
+                {% empty %}
+                <li>No data</li>
+                {% endfor %}
+            </ul>
             </p>
             <ul>
                 {% for framework in frameworks %}
@@ -17,8 +25,5 @@ Main Page
                 <li>No data</li>
                 {% endfor %}
             </ul>
-            <button class="btn btn-primary">
-                Детальніше
-            </button>
         </div>
 {%endblock%}

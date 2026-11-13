@@ -14,11 +14,11 @@ Main Page
                 Детальніше
             </button>
         </div>
-        <form id="createForm" >
+        <<form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
               {% csrf_token %}
             <input type="text" name= "title" class="form-ghost" placeholder="Title">
             <input type="text" name= "description" class="form-ghost" placeholder="Description">
-            <input type="text" name= "image" class="form-ghost" placeholder="Image">
+            <input type="file" name= "image" class="form-ghost" placeholder="Image">
             <button type="submit">Create</button>
         </form>
         <form action="{% url 'search' %}">

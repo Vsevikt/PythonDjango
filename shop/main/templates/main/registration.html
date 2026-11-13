@@ -3,15 +3,23 @@
 {% block title %}Реєстрація{% endblock %}
 
 {% block content %}
-<form method="post" class="d-flex flex-column gap-2">
+<form method="post" enctype="multipart/form-data" class="d-flex flex-column gap-2">
     {% csrf_token %}
-    <input name="username" placeholder="Логін" required>
-    <input name="first_name" placeholder="Ім’я" required>
-    <input name="password" type="password" placeholder="Пароль" required>
-    <input name="passwordRepeat" type="password" placeholder="Повторіть пароль" required>
+
+    <input type="text" name="first_name" placeholder="Ім’я" required>
+    <input type="text" name="last_name" placeholder="Прізвище" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="date" name="date_of_birth">
+    <input type="password" name="password" placeholder="Пароль" required>
+    <input type="password" name="passwordRepeat" placeholder="Повторіть пароль" required>
+
+    <label>Аватар:</label>
+    <input type="file" name="avatar" accept="image/*">
+
     {% if error %}
-        <p>{{ error }}</p>
+        <p class="text-danger">{{ error }}</p>
     {% endif %}
+
     <button type="submit">Зареєструватися</button>
 </form>
 {% endblock %}

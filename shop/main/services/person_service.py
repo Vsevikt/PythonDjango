@@ -1,9 +1,5 @@
-from datetime import datetime as dt
-from django.contrib.auth.models import User
-from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-import json
-
+from django.contrib.auth.hashers import make_password
 from ..models import Person
 
 def registration(request):
@@ -24,7 +20,7 @@ def registration(request):
             first_name=first_name,
             last_name=last_name,
             email=email,
-            password=password,
+            password=make_password(password),
             avatar=avatar
         )
 

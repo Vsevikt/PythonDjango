@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from main.models import Card, Person
+from main.models import Card, User
 
 # Register your models here.
 admin.site.register(Card)
 
-@admin.register(Person)
-class PersonAdmin(admin.ModelAdmin):
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
     readonly_fields = ("refresh_token",)

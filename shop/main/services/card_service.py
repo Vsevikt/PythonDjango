@@ -1,14 +1,10 @@
-import datetime as dt
-
-from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
-from django.shortcuts import render, redirect
-import json
+from django.shortcuts import render
 
 from ..cards import cards
 from ..models import Card
-# Create your views here.
+
 
 def get_card(request, id):
     if request.GET.get('title'):
@@ -20,6 +16,7 @@ def get_card(request, id):
         })
     else:
         return HttpResponse("Not Found")
+
 
 def get_card_by_title(request):
     title = None
@@ -35,15 +32,11 @@ def get_card_by_title(request):
 
 
 def search(request):
-    title = request.GET.get('title', '')
+    title = request.GET.get("title", "").strip()
+    result = Card.objects.filter(title__icontains=title)
 
-    result = [
-        card for card in cards
-        if title.lower() in card['title'].lower()
-    ]
-
-    return render(request, 'main/index.html', {
-        'cards': result
+    return render(request, "main/index.html", {
+        "cards": result,
     })
 
 def create_card(request):

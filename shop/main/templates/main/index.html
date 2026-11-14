@@ -3,7 +3,8 @@
 Main Page
 {% endblock %}
 
-{%block content%}
+{% load static %}
+{% block content %}
   <!-- Заголовок -->
         <div class="p-5 mb-4 bg-white rounded-3 shadow-sm">
             <h1 class="display-5 fw-bold">Вітаємо на нашому сайті!</h1>
@@ -14,15 +15,37 @@ Main Page
                 Детальніше
             </button>
         </div>
-        <<form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
+
+        <form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
               {% csrf_token %}
             <input type="text" name= "title" class="form-ghost" placeholder="Title">
             <input type="text" name= "description" class="form-ghost" placeholder="Description">
             <input type="file" name= "image" class="form-ghost" placeholder="Image">
             <button type="submit">Create</button>
         </form>
+
         <form action="{% url 'search' %}">
           <input type="search" name= "title" class="form-ghost" placeholder="Search...">
               <input type="submit" value="OK">
         </form>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 mt-2">
+          {% for card in cards %}
+            <div class="col d-flex">
+              <section class="card w-100 h-100">
+                {% if card.image %}
+                  <img src="{{ card.image.url }}" class="card-img-top"
+                       alt="{{ card.title }}" style="height: 220px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                  <h4 class="card-title">{{ card.title }}</h4>
+                  <p class="card-text">{{ card.description }}</p>
+                  <a href="{% url 'card' card.id %}" class="btn btn-primary mt-auto">Details</a>
+                </div>
+              </section>
+            </div>
+          {% empty %}
+            <p>Карточек пока нет.</p>
+          {% endfor %}
+        </div>
 {%endblock%}

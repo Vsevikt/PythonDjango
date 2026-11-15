@@ -3,7 +3,7 @@ from .cards import cards
 from .models import Card
 
 from .services.card_service import get_card, get_card_by_title, search, create_card
-from .services.user_service import registration
+from .services.user_service import registration, login
 
 # -- card
 def get_card_view(request, id):
@@ -23,11 +23,12 @@ def create_card_view(request):
 def registration_view(request):
     return registration(request)
 
+def login_view(request):
+    return login(request)
 
 def home(request):
     #return HttpResponse("Hello World")
     return render(request, 'main/index.html', {'cards': Card.objects.all()})
-
 
 def about(request):
     #return HttpResponse("Hello World")

@@ -1,17 +1,36 @@
 {% extends 'main/layout.html' %}
-{% block title %}
-Main Page
-{% endblock %}
 
-{%block content%}
-        <!-- Заголовок -->
-        <div class="p-5 mb-4 bg-white rounded-3 shadow-sm">
-            <h1 class="display-5 fw-bold">Вітаємо на нашому сайті!</h1>
-            <p class="fs-5 text-muted">
-                Це контакти
-            </p>
-            <button class="btn btn-primary">
-                Детальніше
-            </button>
-        </div>
-{%endblock%}
+{% block title %}Контакти{% endblock %}
+
+{% block content %}
+<!--<section class="page-hero mb-4">-->
+<!--    <span class="badge rounded-pill text-bg-primary mb-3">Зв’язок</span>-->
+<!--    <h1 class="fw-bold mb-3">Маєте запитання?</h1>-->
+<!--    <p class="fs-5 text-secondary mb-0">Напишіть нам — будемо раді допомогти.</p>-->
+<!--</section>-->
+
+<div class="row g-4 mb-4">
+    <div class="col-lg-5">
+        <section class="contact-panel">
+            <h2 class="h4 fw-bold mb-4">Контактна інформація</h2>
+            <div class="mb-4"><div class="small text-secondary mb-1">Електронна пошта</div><a class="text-decoration-none fw-semibold" href="mailto:hello@example.com">hello@example.com</a></div>
+            <div class="mb-4"><div class="small text-secondary mb-1">Телефон</div><a class="text-decoration-none fw-semibold" href="tel:+380000000000">+380 (00) 000 00 00</a></div>
+            <div><div class="small text-secondary mb-1">Графік роботи</div><div class="fw-semibold">Понеділок — п’ятниця, 9:00–18:00</div></div>
+            <p class="small text-secondary mt-4 mb-0">Замініть приклади контактів на актуальні дані вашого сервісу.</p>
+        </section>
+    </div>
+    <div class="col-lg-7">
+        <section class="contact-panel">
+            <h2 class="h4 fw-bold mb-2">Напишіть нам</h2>
+            <p class="text-secondary mb-4">Заповніть форму, і ми зв’яжемося з вами.</p>
+            <form class="d-flex flex-column gap-3" method="post">
+                {% csrf_token %}
+                <input class="form-control" type="text" name="name" placeholder="Ваше ім’я" aria-label="Ваше ім’я" required>
+                <input class="form-control" type="email" name="email" placeholder="Email" aria-label="Email" required>
+                <textarea class="form-control" name="message" rows="5" placeholder="Ваше повідомлення" aria-label="Ваше повідомлення" required></textarea>
+                <button class="btn btn-primary align-self-start" type="submit">Надіслати повідомлення</button>
+            </form>
+        </section>
+    </div>
+</div>
+{% endblock %}

@@ -1,51 +1,55 @@
 {% extends 'main/layout.html' %}
-{% block title %}
-Main Page
-{% endblock %}
-
 {% load static %}
+
+{% block title %}Головна{% endblock %}
+
 {% block content %}
-  <!-- Заголовок -->
-        <div class="p-5 mb-4 bg-white rounded-3 shadow-sm">
-            <h1 class="display-5 fw-bold">Вітаємо на нашому сайті!</h1>
-            <p class="fs-5 text-muted">
-                Це головна сторінка сайта
-            </p>
-            <button class="btn btn-primary">
-                Детальніше
-            </button>
+<!--<section class="home-hero mb-4">-->
+<!--    <span class="badge rounded-pill text-bg-primary mb-3">Вітаємо</span>-->
+<!--    <h1 class="fw-bold mb-3">Знайдіть те, що шукаєте</h1>-->
+<!--    <p class="fs-5 text-secondary mb-4">Переглядайте картки, відкривайте цікаві пропозиції та діліться власними.</p>-->
+<!--    <a class="btn btn-primary btn-lg" href="#cards">Переглянути картки</a>-->
+<!--</section>-->
+
+<section class="content-panel mb-4">
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
+        <div>
+            <h2 class="h4 fw-bold mb-1">Створити картку</h2>
+            <p class="text-secondary mb-0">Додайте заголовок, опис і зображення.</p>
         </div>
-
-        <form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
-              {% csrf_token %}
-            <input type="text" name= "title" class="form-ghost" placeholder="Title">
-            <input type="text" name= "description" class="form-ghost" placeholder="Description">
-            <input type="file" name= "image" class="form-ghost" placeholder="Image">
-            <button type="submit">Create</button>
+        <form class="d-flex gap-2" action="{% url 'search' %}">
+            <input type="search" name="title" class="form-control" placeholder="Пошук карток..." aria-label="Пошук карток" value="{{ search_title }}">
+            <button class="btn btn-outline-primary" type="submit">Знайти</button>
         </form>
+    </div>
+    <form id="createForm" method="POST" action="{% url 'create' %}" enctype="multipart/form-data" class="row g-3 align-items-end">
+        {% csrf_token %}
+        <div class="col-md-6"><label class="form-label" for="card-title">Заголовок</label><input id="card-title" type="text" name="title" class="form-control" placeholder="Наприклад, цікава пропозиція"></div>
+        <div class="col-md-6"><label class="form-label" for="card-image">Зображення</label><input id="card-image" type="file" name="image" class="form-control" accept="image/*"></div>
+        <div class="col-12"><label class="form-label" for="card-description">Опис</label><textarea id="card-description" name="description" class="form-control" rows="3" placeholder="Коротко розкажіть про картку"></textarea></div>
+        <div class="col-12"><button class="btn btn-primary" type="submit">Створити картку</button></div>
+    </form>
+</section>
 
-        <form action="{% url 'search' %}">
-          <input type="search" name= "title" class="form-ghost" placeholder="Search...">
-              <input type="submit" value="OK">
-        </form>
-
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 mt-2">
-          {% for card in cards %}
-            <div class="col d-flex">
-              <section class="card w-100 h-100">
-                {% if card.image %}
-                  <img src="{{ card.image.url }}" class="card-img-top"
-                       alt="{{ card.title }}" style="height: 220px; object-fit: cover;">
-                {% endif %}
-                <div class="card-body d-flex flex-column">
-                  <h4 class="card-title">{{ card.title }}</h4>
-                  <p class="card-text">{{ card.description }}</p>
-                  <a href="{% url 'card' card.id %}" class="btn btn-primary mt-auto">Details</a>
+<section id="cards" class="pt-2">
+    <div class="d-flex justify-content-between align-items-end mb-3">
+        <div><h2 class="h3 fw-bold mb-1">Останні картки</h2><p class="text-secondary mb-0">Перегляньте, що вже додали.</p></div>
+    </div>
+    <div id="cardsList" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+        {% for card in cards %}
+        <div class="col d-flex">
+            <article class="card listing-card w-100 h-100">
+                {% if card.image %}<img src="{{ card.image.url }}" class="card-img-top" alt="{{ card.title }}">{% endif %}
+                <div class="card-body d-flex flex-column p-4">
+                    <h3 class="card-title h5 fw-semibold">{{ card.title }}</h3>
+                    <p class="card-text text-secondary">{{ card.description }}</p>
+                    <a href="{% url 'card' card.id %}" class="btn btn-outline-primary mt-auto align-self-start">Детальніше</a>
                 </div>
-              </section>
-            </div>
-          {% empty %}
-            <p>Карточек пока нет.</p>
-          {% endfor %}
+            </article>
         </div>
-{%endblock%}
+        {% empty %}
+        <div class="col-12 empty-cards-message"><div class="content-panel text-center text-secondary py-5">{% if search_title %}За запитом «{{ search_title }}» нічого не знайдено.{% else %}Карток поки немає. Створіть першу!{% endif %}</div></div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

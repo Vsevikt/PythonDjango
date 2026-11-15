@@ -1,29 +1,39 @@
 {% extends 'main/layout.html' %}
 {% load custom_pluralize_filter %}
-{% block title %}
-About Page
-{% endblock %}
 
-{%block content%}
-  <!-- Заголовок -->
-        <div class="p-5 mb-4 bg-white rounded-3 shadow-sm">
-            <h1 class="display-5 fw-bold">Вітаємо на нашому сайті!</h1>
-            <p class="fs-5 text-muted">
-                {{text | default:"Немає текста"}}
-                 <ul>
+{% block title %}Про нас{% endblock %}
+
+{% block content %}
+<!--<section class="about-hero mb-4">-->
+<!--    <span class="badge rounded-pill text-bg-primary mb-3">Про нас</span>-->
+<!--    <h1 class="fw-bold mb-3">Вітаємо на нашому сайті!</h1>-->
+<!--    <p class="fs-5 text-secondary mb-0">{{ text|default:"Немає текста" }}</p>-->
+<!--</section>-->
+
+<div class="row g-4 mb-4">
+    <div class="col-md-6">
+        <section class="about-panel">
+            <h2 class="h4 fw-bold mb-3">Наші дані</h2>
+            <ul class="about-list">
                 {% for el in data %}
-                <li>{{ el }} {{el|uk_pluralize:"товар,товари,товарів"}}</li>
+                <li>{{ el }} {{ el|uk_pluralize:"товар,товары,товарів" }}</li>
                 {% empty %}
-                <li>No data</li>
+                <li>Немає даних</li>
                 {% endfor %}
             </ul>
-            </p>
-            <ul>
+        </section>
+    </div>
+    <div class="col-md-6">
+        <section class="about-panel">
+            <h2 class="h4 fw-bold mb-3">Технології</h2>
+            <ul class="about-list">
                 {% for framework in frameworks %}
-                <li>{{ forloop.counter }} {{ framework }}</li>
+                <li><span class="text-primary fw-semibold">{{ forloop.counter }}.</span> {{ framework }}</li>
                 {% empty %}
-                <li>No data</li>
+                <li>Немає даних</li>
                 {% endfor %}
             </ul>
-        </div>
-{%endblock%}
+        </section>
+    </div>
+</div>
+{% endblock %}

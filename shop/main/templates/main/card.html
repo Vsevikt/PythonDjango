@@ -1,8 +1,27 @@
-{% extends 'main/layout.html' %}
-{% block title %}
-Main Page
-{% endblock %}
+﻿{% extends 'main/layout.html' %}
+{% load static %}
 
-{%block content%}
-{{ Card: card. }}
+{% block title %}{{ card.title|default:title }}{% endblock %}
+
+{% block content %}
+<section class="content-panel card-detail">
+    <a href="/" class="btn btn-link px-0 text-decoration-none mb-3">← До списку карток</a>
+    <div class="row g-4 align-items-start">
+        {% if card.image %}
+        <div class="col-lg-6">
+            {% if card.image.url %}
+            <img class="card-detail-image" src="{{ card.image.url }}" alt="{{ card.title }}">
+            {% else %}
+            <img class="card-detail-image" src="{% static 'main/images/' %}{{ card.image }}" alt="{{ card.title }}">
+            {% endif %}
+        </div>
+        {% endif %}
+        <div class="col">
+            <span class="badge rounded-pill text-bg-primary mb-3">Картка</span>
+            <h1 class="fw-bold mb-3">{{ card.title|default:title }}</h1>
+            {% if card.description %}<p class="fs-5 text-secondary">{{ card.description }}</p>{% endif %}
+            {% if card.created_at %}<p class="small text-secondary mt-4">Додано: {{ card.created_at|date:"d.m.Y H:i" }}</p>{% endif %}
+        </div>
+    </div>
+</section>
 {% endblock %}

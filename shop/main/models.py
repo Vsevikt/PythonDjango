@@ -7,7 +7,7 @@ class Card(models.Model):
     created_at = models.DateTimeField()
 
 class User(models.Model):
-    username = models.CharField(max_length=20)
+    username = models.CharField(max_length=20, unique=True)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     date_of_birth = models.DateField(null=True, blank=True)
@@ -15,4 +15,4 @@ class User(models.Model):
     email = models.EmailField()
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     is_active = models.BooleanField(default=True)
-    refresh_token = models.CharField(max_length=200, null=True, blank=True)
+    refresh_token = models.TextField(null=True, blank=True)

@@ -7,7 +7,11 @@
 
     <!-- Bootstrap 5 -->
     <link href="{% static 'main/css/bootstrap.min.css' %}" rel="stylesheet">
-    <script defer src="{% static 'main/js/create_card.js' %}"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="{% static 'main/css/style.css' %}" rel="stylesheet">
+    <script defer src="{% static 'main/js/script.js' %}"></script>
 
 </head>
 <body class="bg-light">
@@ -35,8 +39,12 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/contacts">Контакти</a>
-                    </li><li class="nav-item">
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/registration">Реєстрація</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Увійти</a>
                     </li>
                 </ul>
             </div>

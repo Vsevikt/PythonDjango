@@ -1,17 +1,19 @@
 {% extends 'main/layout.html' %}
-{% block title %}
-Main Page
-{% endblock %}
 
-{%block content%}
-        <!-- Заголовок -->
-        <div class="p-5 mb-4 bg-white rounded-3 shadow-sm">
-            <h1 class="display-5 fw-bold">Вітаємо на нашому сайті!</h1>
-            <p class="fs-5 text-muted">
-                Це сервіси
-            </p>
-            <button class="btn btn-primary">
-                Детальніше
-            </button>
-        </div>
-{%endblock%}
+{% block title %}Послуги{% endblock %}
+
+{% block content %}
+<!--<section class="page-hero mb-4">-->
+<!--    <span class="badge rounded-pill text-bg-primary mb-3">Наші послуги</span>-->
+<!--    <h1 class="fw-bold mb-3">Усе необхідне в одному місці</h1>-->
+<!--    <p class="fs-5 text-secondary mb-0">Допомагаємо зручно переглядати пропозиції та ділитися власними картками.</p>-->
+<!--</section>-->
+
+<div class="row g-4 mb-4">
+    <div class="col-md-4"><article class="service-card"><div class="service-icon">01</div><h2 class="h5 fw-bold">Перегляд карток</h2><p class="text-secondary mb-0">Знайомтеся з пропозиціями та відкривайте детальну інформацію про кожну картку.</p></article></div>
+    <div class="col-md-4"><article class="service-card"><div class="service-icon">02</div><h2 class="h5 fw-bold">Пошук</h2><p class="text-secondary mb-0">Швидко знаходьте потрібне за назвою за допомогою пошуку на головній сторінці.</p></article></div>
+    <div class="col-md-4"><article class="service-card"><div class="service-icon">03</div><h2 class="h5 fw-bold">Створення карток</h2><p class="text-secondary mb-0">Додавайте власні картки з описом і зображенням, щоб поділитися ними з іншими.</p></article></div>
+</div>
+
+<div class="text-center py-3"><a href="/" class="btn btn-primary btn-lg">Перейти до карток</a></div>
+{% endblock %}

@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.utils import timezone
 
-from ..models import Card
+from ..models import Card, Tag
 
 def get_card(request, id):
     card = Card.objects.filter(pk=id).first()
@@ -35,6 +35,7 @@ def search(request):
     return render(request, "main/index.html", {
         "cards": cards,
         "search_title": title,
+        "tags": Tag.objects.all(),
     })
 
 def create_card(request):
@@ -44,6 +45,7 @@ def create_card(request):
     title = request.POST.get("title", "").strip()
     description = request.POST.get("description", "").strip()
     image = request.FILES.get("image")
+    tag_ids = request.POST.getlist("tags")
 
     if not title or not description:
         return JsonResponse({"error": "Title and description are required."})
@@ -54,6 +56,7 @@ def create_card(request):
         image=image,
         created_at=timezone.now(),
     )
+    card.tags.set(Tag.objects.filter(pk__in=tag_ids))
 
     return JsonResponse({
         "id": card.id,

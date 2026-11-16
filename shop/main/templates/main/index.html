@@ -1,4 +1,4 @@
-{% extends 'main/layout.html' %}
+﻿{% extends 'main/layout.html' %}
 {% load static %}
 
 {% block title %}Головна{% endblock %}
@@ -27,6 +27,17 @@
         <div class="col-md-6"><label class="form-label" for="card-title">Заголовок</label><input id="card-title" type="text" name="title" class="form-control" placeholder="Наприклад, цікава пропозиція"></div>
         <div class="col-md-6"><label class="form-label" for="card-image">Зображення</label><input id="card-image" type="file" name="image" class="form-control" accept="image/*"></div>
         <div class="col-12"><label class="form-label" for="card-description">Опис</label><textarea id="card-description" name="description" class="form-control" rows="3" placeholder="Коротко розкажіть про картку"></textarea></div>
+        <div class="col-12">
+            <span class="form-label d-block">Теги</span>
+            <div class="d-flex flex-wrap gap-2">
+                {% for tag in tags %}
+                <input class="btn-check" type="checkbox" name="tags" value="{{ tag.id }}" id="tag-{{ tag.id }}" autocomplete="off">
+                <label class="btn btn-outline-primary rounded-pill" for="tag-{{ tag.id }}">{{ tag.name }}</label>
+                {% empty %}
+                <span class="text-secondary small">Тегів поки немає.</span>
+                {% endfor %}
+            </div>
+        </div>
         <div class="col-12"><button class="btn btn-primary" type="submit">Створити картку</button></div>
     </form>
 </section>
@@ -37,18 +48,41 @@
     </div>
     <div id="cardsList" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
         {% for card in cards %}
-        <div class="col d-flex">
-            <article class="card listing-card w-100 h-100">
-                {% if card.image %}<img src="{{ card.image.url }}" class="card-img-top" alt="{{ card.title }}">{% endif %}
-                <div class="card-body d-flex flex-column p-4">
-                    <h3 class="card-title h5 fw-semibold">{{ card.title }}</h3>
-                    <p class="card-text text-secondary">{{ card.description }}</p>
-                    <a href="{% url 'card' card.id %}" class="btn btn-outline-primary mt-auto align-self-start">Детальніше</a>
-                </div>
-            </article>
-        </div>
-        {% empty %}
-        <div class="col-12 empty-cards-message"><div class="content-panel text-center text-secondary py-5">{% if search_title %}За запитом «{{ search_title }}» нічого не знайдено.{% else %}Карток поки немає. Створіть першу!{% endif %}</div></div>
+            <div class="col d-flex">
+                <article class="card listing-card w-100 h-100">
+
+                    {% if card.image %}
+                        <img src="{{ card.image.url }}"
+                             class="card-img-top"
+                             alt="{{ card.title }}">
+                    {% endif %}
+
+                    <div class="card-body d-flex flex-column p-4">
+
+                        <h3 class="card-title h5 fw-semibold">
+                            {{ card.title }}
+                        </h3>
+
+                        <p class="card-text text-secondary">
+                            {{ card.description }}
+                        </p>
+
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            {% for tag in card.tags.all %}
+                                <span class="badge bg-primary">
+                                    {{ tag.name }}
+                                </span>
+                            {% endfor %}
+                        </div>
+
+                        <a href="{% url 'card' card.id %}"
+                           class="btn btn-outline-primary mt-auto align-self-start">
+                            Детальніше
+                        </a>
+
+                    </div>
+                </article>
+            </div>
         {% endfor %}
     </div>
 </section>

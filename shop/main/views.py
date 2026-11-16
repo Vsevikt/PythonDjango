@@ -1,6 +1,9 @@
+from datetime import datetime
+
+from django.http import HttpResponse
 from django.shortcuts import render
 from .cards import cards
-from .models import Card
+from .models import Card, Tag
 
 from .services.card_service import get_card, get_card_by_title, search, create_card
 from .services.user_service import registration, login
@@ -28,7 +31,10 @@ def login_view(request):
 
 def home(request):
     #return HttpResponse("Hello World")
-    return render(request, 'main/index.html', {'cards': Card.objects.all()})
+    return render(request, 'main/index.html', {
+        'cards': Card.objects.all(),
+        'tags': Tag.objects.all(),
+    })
 
 def about(request):
     #return HttpResponse("Hello World")
@@ -43,3 +49,18 @@ def services(request):
 
 def contacts(request):
     return render(request, 'main/contacts.html')
+
+def test_create(request):
+    card = Card(
+        title='test card',
+        description='test description',
+        image='test image',
+        create_at=datetime.now(),
+    )
+    card.save()
+    tag = Tag.objects.create(
+        name='test_tag',
+    )
+    card.tags.add(tag)
+
+    return HttpResponse("ok")

@@ -20,6 +20,13 @@
             <span class="badge rounded-pill text-bg-primary mb-3">Картка</span>
             <h1 class="fw-bold mb-3">{{ card.title|default:title }}</h1>
             {% if card.description %}<p class="fs-5 text-secondary">{{ card.description }}</p>{% endif %}
+            {% if card.tags.exists %}
+            <div class="d-flex flex-wrap gap-2 mb-3" aria-label="Теги картки">
+                {% for tag in card.tags.all %}
+                <span class="badge rounded-pill text-bg-primary">{{ tag.name }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
             {% if card.created_at %}<p class="small text-secondary mt-4">Додано: {{ card.created_at|date:"d.m.Y H:i" }}</p>{% endif %}
         </div>
     </div>

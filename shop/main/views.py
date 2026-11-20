@@ -42,11 +42,11 @@ def create_card_page(request):
 
     return render(request, 'main/card_form.html', {'form': form})
 
-# ---
 
 def create_card(request):
     return create_card_page(request)
 
+# ---
 
 # -- person
 def registration_view(request):

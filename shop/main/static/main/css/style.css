@@ -180,3 +180,74 @@ footer {
     background: #f1f3f8;
     object-fit: cover;
 }
+
+/* Create Card Form */
+.create-card-form {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border: 1px solid #e8ebf1;
+    border-radius: 1.25rem;
+    background: #fff;
+    box-shadow: 0 16px 45px rgba(24, 39, 75, .06);
+}
+
+.create-card-form h2 {
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.create-card-form .form-control {
+    border-color: #dfe3eb;
+    border-radius: .7rem;
+    padding: .75rem;
+}
+
+.create-card-form .form-control:focus {
+    border-color: #7c8cf8;
+    box-shadow: 0 0 0 .22rem rgba(99, 102, 241, .14);
+}
+
+.create-card-form .btn {
+    border-radius: .7rem;
+    font-weight: 600;
+    padding: .7rem 1.5rem;
+}
+
+.create-card-form .errorlist {
+    color: #dc3545;
+    font-size: .875rem;
+    padding-left: 1.2rem;
+    margin-top: .4rem;
+}
+
+.create-card-form ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.create-card-form ul li {
+    margin-bottom: .5rem;
+}
+
+.create-card-form ul label {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .4rem .75rem;
+    border: 1px solid #dfe3eb;
+    border-radius: 999px;
+    background: #f8f9fc;
+    cursor: pointer;
+}
+
+.create-card-form input[type="checkbox"] {
+    margin-right: .5rem;
+    accent-color: #4f46e5;
+}
+
+.create-card-form label {
+    font-weight: 500;
+    margin-bottom: .5rem;
+}

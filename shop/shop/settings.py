@@ -87,6 +87,9 @@ DATABASES = {
         'PASSWORD': os.getenv('DB_PASS'), # пароль
         'HOST': os.getenv('DB_HOST'), # або IP
         'PORT': os.getenv('DB_PORT'),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        }
     }
 }
 

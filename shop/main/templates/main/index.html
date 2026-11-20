@@ -1,4 +1,4 @@
-﻿{% extends 'main/layout.html' %}
+{% extends 'main/layout.html' %}
 {% load static %}
 
 {% block title %}Головна{% endblock %}
@@ -22,17 +22,17 @@
             <button class="btn btn-outline-primary" type="submit">Знайти</button>
         </form>
     </div>
-    <form id="createForm" method="POST" action="{% url 'create' %}" enctype="multipart/form-data" class="row g-3 align-items-end">
+    <form id="createForm" method="POST" action="{% url 'create' %}" enctype="multipart/form-data" novalidate class="row g-3 align-items-end">
         {% csrf_token %}
-        <div class="col-md-6"><label class="form-label" for="card-title">Заголовок</label><input id="card-title" type="text" name="title" class="form-control" placeholder="Наприклад, цікава пропозиція"></div>
-        <div class="col-md-6"><label class="form-label" for="card-image">Зображення</label><input id="card-image" type="file" name="image" class="form-control" accept="image/*"></div>
-        <div class="col-12"><label class="form-label" for="card-description">Опис</label><textarea id="card-description" name="description" class="form-control" rows="3" placeholder="Коротко розкажіть про картку"></textarea></div>
+        <div class="col-md-6"><label class="form-label" for="card-title">Заголовок</label>{{ form.title }}</div>
+        <div class="col-md-6"><label class="form-label" for="card-image">Зображення</label>{{ form.image }}</div>
+        <div class="col-12"><label class="form-label" for="card-description">Опис</label>{{ form.description }}</div>
         <div class="col-12">
             <span class="form-label d-block">Теги</span>
             <div class="d-flex flex-wrap gap-2">
-                {% for tag in tags %}
-                <input class="btn-check" type="checkbox" name="tags" value="{{ tag.id }}" id="tag-{{ tag.id }}" autocomplete="off">
-                <label class="btn btn-outline-primary rounded-pill" for="tag-{{ tag.id }}">{{ tag.name }}</label>
+                {% for tag in form.tags %}
+                {{ tag.tag }}
+                <label class="btn btn-outline-primary rounded-pill" for="{{ tag.id_for_label }}">{{ tag.choice_label }}</label>
                 {% empty %}
                 <span class="text-secondary small">Тегів поки немає.</span>
                 {% endfor %}

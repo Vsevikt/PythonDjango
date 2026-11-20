@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.utils import timezone
 
 from ..models import Card, Tag
+from ..forms import FormCreateCard
 
 def get_card(request, id):
     card = Card.objects.filter(pk=id).first()
@@ -36,27 +37,21 @@ def search(request):
         "cards": cards,
         "search_title": title,
         "tags": Tag.objects.all(),
+        "form": FormCreateCard(),
     })
 
 def create_card(request):
     if request.method != "POST":
         return JsonResponse({"error": "Method not allowed."})
 
-    title = request.POST.get("title", "").strip()
-    description = request.POST.get("description", "").strip()
-    image = request.FILES.get("image")
-    tag_ids = request.POST.getlist("tags")
+    form = FormCreateCard(request.POST, request.FILES)
+    if not form.is_valid():
+        return JsonResponse({"errors": form.errors}, status=400)
 
-    if not title or not description:
-        return JsonResponse({"error": "Title and description are required."})
-
-    card = Card.objects.create(
-        title=title,
-        description=description,
-        image=image,
-        created_at=timezone.now(),
-    )
-    card.tags.set(Tag.objects.filter(pk__in=tag_ids))
+    card = form.save(commit=False)
+    card.created_at = timezone.now()
+    card.save()
+    form.save_m2m()
 
     return JsonResponse({
         "id": card.id,

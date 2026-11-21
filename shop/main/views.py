@@ -7,7 +7,7 @@ from .cards import cards
 from .models import Card, Tag
 from .forms import FormCreateCard
 
-from .services.card_service import get_card, get_card_by_title, search, create_card as create_card_api
+from .services.card_service import get_card, get_card_by_title, search, create_card
 from .services.user_service import registration, login
 
 # -- card
@@ -21,32 +21,8 @@ def search_view(request):
     return search(request)
 
 def create_card_view(request):
-    return create_card_api(request)
+    return create_card(request)
 
-# --- for page card_form.html
-
-def create_card_page(request):
-    if request.method == 'POST':
-        form = FormCreateCard(request.POST, request.FILES)
-        if form.is_valid():
-            card = Card.objects.create(
-                title=form.cleaned_data['title'],
-                description=form.cleaned_data['description'],
-                image=form.cleaned_data.get('image') or '',
-                created_at=timezone.now(),
-            )
-            card.tags.set(form.cleaned_data['tags'])
-            return redirect('home')
-    else:
-        form = FormCreateCard()
-
-    return render(request, 'main/card_form.html', {'form': form})
-
-
-def create_card(request):
-    return create_card_page(request)
-
-# ---
 
 # -- person
 def registration_view(request):

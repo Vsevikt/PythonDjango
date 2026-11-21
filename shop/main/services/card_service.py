@@ -1,5 +1,5 @@
 ﻿from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils import timezone
 
 from ..models import Card, Tag
@@ -42,21 +42,27 @@ def search(request):
 
 def create_card(request):
     if request.method != "POST":
-        return JsonResponse({"error": "Method not allowed."})
+        return JsonResponse(
+            {"error": "Method not allowed."},
+            status=405
+        )
 
     form = FormCreateCard(request.POST, request.FILES)
+
     if not form.is_valid():
-        return JsonResponse({"errors": form.errors}, status=400)
+        return render(request, "main/index.html", {
+            "cards": Card.objects.all(),
+            "tags": Tag.objects.all(),
+            "form": form,
+        })
 
-    card = form.save(commit=False)
-    card.created_at = timezone.now()
-    card.save()
-    form.save_m2m()
+    card = Card.objects.create(
+        title=form.cleaned_data['title'],
+        description=form.cleaned_data['description'],
+        image=form.cleaned_data['image'],
+        created_at=timezone.now(),
+    )
 
-    return JsonResponse({
-        "id": card.id,
-        "title": card.title,
-        "description": card.description,
-        "image_url": card.image.url if card.image else "",
-        "detail_url": f"/card/{card.id}",
-    })
+    card.tags.set(form.cleaned_data['tags'])
+
+    return redirect("/search")

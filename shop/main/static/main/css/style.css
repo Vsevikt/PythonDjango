@@ -251,3 +251,205 @@ footer {
     font-weight: 500;
     margin-bottom: .5rem;
 }
+
+
+/* ==============================
+   Основной блок создания карточки
+============================== */
+
+.content-panel {
+    background: #ffffff;
+    border: 1px solid #e5eaf1;
+    border-radius: 18px;
+    padding: 32px;
+    margin-bottom: 40px;
+    box-shadow: 0 5px 24px rgba(20, 40, 80, 0.04);
+}
+
+/* Заголовок секции */
+
+.content-panel h2 {
+    color: #17233c;
+    letter-spacing: -0.5px;
+}
+
+.content-panel p {
+    line-height: 1.6;
+}
+
+/* Подписи полей */
+
+.content-panel .form-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #344054;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Поля ввода */
+
+.content-panel .form-control {
+    min-height: 44px;
+    border: 1px solid #d9e0ea;
+    border-radius: 9px;
+    padding: 10px 13px;
+    color: #263449;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.content-panel .form-control:focus {
+    border-color: #6b9fff;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+}
+
+/* Поле описания */
+
+.content-panel textarea.form-control {
+    min-height: 140px;
+    resize: vertical;
+}
+
+/* Поле загрузки изображения */
+
+.content-panel input[type="file"].form-control {
+    padding: 7px;
+    cursor: pointer;
+}
+
+.content-panel input[type="file"]::file-selector-button {
+    border: none;
+    border-radius: 6px;
+    padding: 7px 12px;
+    margin-right: 12px;
+    background: #edf3ff;
+    color: #0d6efd;
+    cursor: pointer;
+}
+
+/* Ошибки Django forms.py */
+
+.content-panel .text-danger.small {
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* ==============================
+   Теги
+============================== */
+
+.content-panel .d-flex.flex-wrap.gap-2 > div {
+    position: relative;
+}
+
+.content-panel .d-flex.flex-wrap.gap-2 input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.content-panel .d-flex.flex-wrap.gap-2 label.btn {
+    margin: 0;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.content-panel .d-flex.flex-wrap.gap-2 input[type="checkbox"]:checked + label {
+    background: #0d6efd;
+    color: #ffffff;
+    border-color: #0d6efd;
+}
+
+.content-panel .d-flex.flex-wrap.gap-2 input[type="checkbox"]:focus-visible + label {
+    outline: 3px solid rgba(13, 110, 253, 0.25);
+    outline-offset: 2px;
+}
+
+/* ==============================
+   Кнопка создания
+============================== */
+
+.content-panel button[type="submit"] {
+    min-height: 43px;
+    padding: 10px 22px;
+    border-radius: 9px;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.content-panel button[type="submit"]:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(13, 110, 253, 0.2);
+}
+
+/* ==============================
+   Последние карточки
+============================== */
+
+#cards {
+    margin-top: 42px;
+}
+
+#cards h2 {
+    color: #17233c;
+    letter-spacing: -0.5px;
+}
+
+.listing-card {
+    overflow: hidden;
+    border: 1px solid #e5eaf1;
+    border-radius: 15px;
+    box-shadow: 0 4px 18px rgba(20, 40, 80, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.listing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(20, 40, 80, 0.09);
+}
+
+.listing-card .card-img-top {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+}
+
+.listing-card .card-title {
+    color: #17233c;
+}
+
+
+@media (max-width: 768px) {
+    .content-panel {
+        padding: 20px 16px;
+        border-radius: 13px;
+    }
+
+    .content-panel textarea.form-control {
+        min-height: 120px;
+    }
+
+    .content-panel button[type="submit"] {
+        width: 100%;
+    }
+
+    .listing-card .card-img-top {
+        height: 190px;
+    }
+}
+
+.tag-button {
+    padding: 10px 20px;
+    font-size: 15px;
+}
+
+.tag-button.active {
+    background-color: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+}

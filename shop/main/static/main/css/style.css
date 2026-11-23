@@ -453,3 +453,116 @@ footer {
     color: white;
     border-color: #0d6efd;
 }
+
+
+/* Скрываем стандартные чекбоксы */
+.tag-button + input,
+input[type="checkbox"] {
+    display: none;
+}
+
+/* Обычное состояние тега */
+.tag-button {
+    display: inline-block;
+    padding: 7px 16px;
+    border: 1px solid #0d6efd;
+    border-radius: 50px;
+    color: #0d6efd;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+/* Наведение */
+.tag-button:hover {
+    background-color: #e7f1ff;
+}
+
+/* Выбранный тег */
+input[type="checkbox"]:checked + .tag-button {
+    background-color: #0d6efd;
+    color: white;
+}
+
+/* Фокус с клавиатуры */
+input[type="checkbox"]:focus-visible + .tag-button {
+    outline: 3px solid rgba(13, 110, 253, 0.3);
+    outline-offset: 2px;
+}
+
+/* Контейнер тега */
+.tag-option {
+    position: relative;
+}
+
+/* Скрываем стандартный checkbox */
+.tag-option input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+/* Обычный тег */
+.tag-option label {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid #0d6efd;
+    border-radius: 50px;
+    color: #0d6efd;
+    background: transparent;
+    cursor: pointer;
+    transition: 0.2s ease;
+    user-select: none;
+}
+
+/* Наведение */
+.tag-option label:hover {
+    background: #e7f1ff;
+}
+
+/* Выбранный тег */
+.tag-option input[type="checkbox"]:checked + label {
+    background: #0d6efd;
+    color: white;
+}
+
+/* Фокус */
+.tag-option input[type="checkbox"]:focus-visible + label {
+    outline: 3px solid rgba(13, 110, 253, 0.3);
+}
+
+/* Карточки */
+.listing-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Все изображения одинаковой высоты */
+.listing-card .card-img-top {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* Тело карточки */
+.listing-card .card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* Описание */
+.listing-card .card-text {
+    overflow-wrap: anywhere;
+}
+
+/* Кнопка всегда внизу */
+.listing-card .btn {
+    margin-top: auto;
+}
+

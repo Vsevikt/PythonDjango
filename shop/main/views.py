@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest, JsonResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from .cards import cards
@@ -31,13 +31,38 @@ def registration_view(request):
 def login_view(request):
     return login(request)
 
-def home(request):
-    #return HttpResponse("Hello World")
-    return render(request, 'main/index.html', {
+def home(request: HttpRequest) -> HttpResponse:
+    login = request.COOKIES.get('login')
+
+    visits = request.COOKIES.get('visits')
+
+    if visits is None:
+        visit_message = 'Вітаємо! Це ваш перший візит.'
+        visits = 1
+    else:
+        visits = int(visits)
+        visit_message = f'Ви вже відвідували сайт {visits} разів.'
+        visits += 1
+
+    response = render(request, 'main/index.html', {
         'cards': Card.objects.all(),
+        'login': login,
+        'user': login,
         'tags': Tag.objects.all(),
         'form': FormCreateCard(),
+        'visit_message': visit_message,
     })
+
+    response.set_cookie('visits', visits, max_age=3600, httponly=True)
+
+    if login is None:
+        response.set_cookie('login', 'admin', httponly=True, max_age=3600)
+
+
+    return response
+
+
+
 
 def about(request):
     #return HttpResponse("Hello World")

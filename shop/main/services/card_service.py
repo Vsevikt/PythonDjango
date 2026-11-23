@@ -41,11 +41,10 @@ def search(request):
     })
 
 def create_card(request):
-    if request.method != "POST":
-        return JsonResponse(
-            {"error": "Method not allowed."},
-            status=405
-        )
+    if request.method == "POST":
+        print('Отриман POST-request!')
+        print('Дані:', request.POST)
+        print('Кукі:', request.COOKIES)
 
     form = FormCreateCard(request.POST, request.FILES)
 

@@ -45,7 +45,7 @@ def home(request: HttpRequest) -> HttpResponse:
         visits += 1
 
     response = render(request, 'main/index.html', {
-        'cards': Card.objects.all(),
+        'cards': Card.objects.all().order_by("-id")[:6],
         'login': login,
         'user': login,
         'tags': Tag.objects.all(),
@@ -62,6 +62,10 @@ def home(request: HttpRequest) -> HttpResponse:
     return response
 
 
+def cards(request: HttpRequest) -> HttpResponse:
+    return render(request, 'main/cards.html', {
+        'cards': Card.objects.all().order_by('-id'),
+    })
 
 
 def about(request):
